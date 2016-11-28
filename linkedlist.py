@@ -80,7 +80,7 @@ class LinkedList(object):
         """Delete the given item from this linked list, or raise ValueError"""
         # find given item and delete if found
         try:
-            before_node = find(lambda item: item.next is item)
+            before_node = findNode(lambda item: item.next is item)
             after_node = item.next
             before_node.next = after_node
             pass
@@ -104,6 +104,19 @@ class LinkedList(object):
 
         pass
 
+    def findNode(self, quality):
+        """Return an item from this linked list satisfying the given quality"""
+        # find item where quality(item) is True
+        finished = False
+        current_node = self.head
+        while not finished:
+            if current_node is not self.tail:
+                if quality(current_node):
+                    return current_node
+                current_node = current_node.next
+            else:
+                finished = True
+        return None
 
 def test_linked_list():
     ll = LinkedList()
