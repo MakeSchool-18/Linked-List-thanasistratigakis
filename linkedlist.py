@@ -45,27 +45,63 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
-        # TODO: count number of items
+        if self.head == self.tail:
+            return 1
+        finished = False
+        count = 0
+        current_node = self.head
+        while not finished:
+            if current_node is not self.tail:
+                count += 1
+                current_node = current_node.next
+            else:
+                finished = True
+        return count
         pass
 
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
-        # TODO: append given item
+        # append given item
+        new_node = Node(item)
+        old_tail = Node(self.tail)
+        old_tail.next = new_node
+        self.tail = new_node
         pass
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
-        # TODO: prepend given item
+        # prepend given item
+        new_node = Node(item)
+        new_node.next = self.head
+        self.head = new_node
         pass
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
-        # TODO: find given item and delete if found
+        # find given item and delete if found
+        try:
+            before_node = find(lambda item: item.next is item)
+            after_node = item.next
+            before_node.next = after_node
+            pass
+        except Exception as e:
+            raise ValueError("Item doesnt exist in linked list")
         pass
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
-        # TODO: find item where quality(item) is True
+        # find item where quality(item) is True
+        finished = False
+        current_node = self.head
+        while not finished:
+            if current_node is not self.tail:
+                if quality(current_node):
+                    return current_node.data
+                current_node = current_node.next
+            else:
+                finished = True
+        return None
+
         pass
 
 
