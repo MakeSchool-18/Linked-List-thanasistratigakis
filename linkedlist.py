@@ -105,47 +105,76 @@ class LinkedList(object):
             self.head = new_node
         pass
 
-    # O(n)
-    # Omega(1)
+
+
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
-        # find given item and delete if found
-        before_node = self.findPreviousNode(lambda item: item is item)
-        node_to_delete = self.findNode(lambda item: item is item)
+        if self.head is None:
+            raise ValueError('Cannot Linked List is Empty')
 
-        # Node is found
-        if node_to_delete is not None:
+        current = self.head
 
-            # Node is head
-            if self.head is node_to_delete:
-                print(self.head.data)
-                print(self.tail.data)
-                print(node_to_delete)
-                self.head = node_to_delete.next
-                print("Node is head")
+        if current.data == item:
+            self.head = current.next
+            if self.head is None:
+                self.tail = None
+            return
+
+        while current.next is not None:
+            if current.next.data == item:
+                new_next = current.next.next
+                if new_next is not None:
+                    current.next = new_next
+                else:
+                    current.next = None
+                    self.tail = current
                 return
-                pass
-            print("passed head check")
-            # Node is tail
-            if self.tail is node_to_delete:
-                # if before_node is not self.head:
-                print(self.head.data)
-                print(self.tail.data)
-                self.tail == before_node
-                before_node.next = None
-                print("Node is tail")
+            current = current.next
 
-                return
-                pass
+        raise ValueError('Delete item failed')
 
-            # Node is not head or tail
-            after_node = node_to_delete.next
-            before_node.next = after_node
-            pass
-        else:
-            print("item doesnt exist in list")
-            # raise ValueError("Item doesnt exist in linked list")
-        pass
+
+    # # O(n)
+    # # Omega(1)
+    # def delete(self, item):
+    #     """Delete the given item from this linked list, or raise ValueError"""
+    #     # find given item and delete if found
+    #     before_node = self.findPreviousNode(lambda item: item is item)
+    #     node_to_delete = self.findNode(lambda item: item is item)
+    #
+    #     # Node is found
+    #     if node_to_delete is not None:
+    #
+    #         # Node is head
+    #         if self.head is node_to_delete:
+    #             print(self.head.data)
+    #             print(self.tail.data)
+    #             print(node_to_delete)
+    #             self.head = node_to_delete.next
+    #             print("Node is head")
+    #             return
+    #             pass
+    #         print("passed head check")
+    #         # Node is tail
+    #         if self.tail is node_to_delete:
+    #             # if before_node is not self.head:
+    #             print(self.head.data)
+    #             print(self.tail.data)
+    #             self.tail == before_node
+    #             before_node.next = None
+    #             print("Node is tail")
+    #
+    #             return
+    #             pass
+    #
+    #         # Node is not head or tail
+    #         after_node = node_to_delete.next
+    #         before_node.next = after_node
+    #         pass
+    #     else:
+    #         print("item doesnt exist in list")
+    #         # raise ValueError("Item doesnt exist in linked list")
+    #     pass
 
     # O()
     # Omega(1)
